@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Role } from "src/app/models/Role";
 import { UserService } from "src/app/services/user/user.service";
+import { StateService } from "src/app/services/state/state.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -12,15 +14,23 @@ export class LoginComponent implements OnInit {
   passwordField: string;
   studentRole = new Role(2, "Student");
 
-  constructor(private us: UserService) {}
+  constructor(
+    private us: UserService,
+    public gvs: StateService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
   login() {
     this.us.getByUsername(this.usernameField).subscribe(
       data => {
-        console.log(data);
-        console.log("Hello");
+        this.gvs.setCurrentUser(data);
+        if (data.role.id === 1) {
+          this.router.navigateByUrl("/teacher");
+        } else {
+          this.router.navigateByUrl("/student");
+        }
       },
       err => console.log(err)
     );

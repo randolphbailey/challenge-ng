@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user/user.service";
 import { Role } from "src/app/models/Role";
 import { User } from "src/app/models/User";
+import { StateService } from "src/app/services/state/state.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -13,7 +15,11 @@ export class RegisterComponent implements OnInit {
   passwordField: string;
   studentRole = new Role(2, "Student");
 
-  constructor(private us: UserService) {}
+  constructor(
+    private us: UserService,
+    public gvs: StateService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -23,7 +29,11 @@ export class RegisterComponent implements OnInit {
         new User(0, this.usernameField, this.passwordField, this.studentRole)
       )
       .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          this.gvs.setCurrentUser(data);
+          this.router.navigateByUrl("/student");
+        },
         err => console.log(err)
       );
   }
