@@ -1,9 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { User } from "src/app/models/User";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StateService {
+  currentUser: User;
+  constructor() {}
 
-  constructor() { }
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
+  setCurrentUser(user: User) {
+    this.currentUser = user;
+  }
 }
