@@ -1,0 +1,24 @@
+<h2>Register</h2>
+<form>
+  <div class="form-group">
+    <label for="usernameInput">Desired Username:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="usernameInput"
+      name="username"
+      [(ngModel)]="usernameField"
+    />
+  </div>
+  <div class="form-group">
+    <label for="passwordInput">Strong Password:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="passwordInput"
+      name="password"
+      [(ngModel)]="passwordField"
+    />
+  </div>
+  <button class="btn btn-success" (click)="register()">Register</button>
+</form>
